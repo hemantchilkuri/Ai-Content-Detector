@@ -1,0 +1,313 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>Ai Detector</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+      background: linear-gradient(135deg, #e0f2fe 0%, #ffffff 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    textarea::-webkit-scrollbar {
+      width: 8px;
+    }
+    textarea::-webkit-scrollbar-thumb {
+      background-color: #3b82f6;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen">
+  <header class="bg-white/90 backdrop-blur-md shadow-md sticky top-0 z-50">
+    <div class="container mx-auto max-w-6xl px-6 py-5 flex justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <img
+          alt="Ai Detector logo with blue letters AI on white background"
+          class="w-12 h-12"
+          src="https://storage.googleapis.com/a1aa/image/99e16635-12d2-4792-2caa-3ee29ff408f8.jpg"
+          width="48"
+          height="48"
+          loading="lazy"
+        />
+        <h1 class="text-3xl font-extrabold text-blue-700 tracking-wide select-none">
+          Ai Detector
+        </h1>
+      </div>
+      <nav class="hidden md:flex space-x-10 text-gray-700 font-semibold tracking-wide">
+        <a href="#detector" class="hover:text-blue-600 transition duration-300 ease-in-out">Detector</a>
+        <a href="#how-it-works" class="hover:text-blue-600 transition duration-300 ease-in-out">How It Works</a>
+        <a href="#about" class="hover:text-blue-600 transition duration-300 ease-in-out">About</a>
+        <a href="#contact" class="hover:text-blue-600 transition duration-300 ease-in-out">Contact</a>
+      </nav>
+      <button
+        aria-label="Toggle menu"
+        id="menu-btn"
+        type="button"
+        class="md:hidden text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 rounded"
+      >
+        <i class="fas fa-bars fa-lg"></i>
+      </button>
+    </div>
+    <nav
+      id="mobile-menu"
+      aria-label="Mobile menu"
+      class="md:hidden bg-white/90 backdrop-blur-md border-t border-blue-200 hidden"
+    >
+      <a href="#detector" class="block px-6 py-4 text-blue-700 font-semibold hover:bg-blue-100 border-b border-blue-200">Detector</a>
+      <a href="#how-it-works" class="block px-6 py-4 text-blue-700 font-semibold hover:bg-blue-100 border-b border-blue-200">How It Works</a>
+      <a href="#about" class="block px-6 py-4 text-blue-700 font-semibold hover:bg-blue-100 border-b border-blue-200">About</a>
+      <a href="#contact" class="block px-6 py-4 text-blue-700 font-semibold hover:bg-blue-100">Contact</a>
+    </nav>
+  </header>
+
+  <main class="flex-grow container mx-auto max-w-5xl px-6 py-12">
+    <section id="detector" class="bg-white border border-blue-100 rounded-3xl shadow-xl p-10 md:p-14">
+      <h2 class="text-4xl font-extrabold text-center text-blue-700 mb-10 tracking-tight">
+        Ai Detector
+      </h2>
+      <form id="detector-form" autocomplete="off" spellcheck="false" class="space-y-8">
+        <label for="content" class="block text-blue-900 font-semibold text-lg mb-3">
+          Paste your content below:
+        </label>
+        <textarea
+          id="content"
+          name="content"
+          rows="10"
+          required
+          placeholder="Enter or paste text here to check if it is AI-generated"
+          class="w-full rounded-2xl border border-blue-300 p-5 text-blue-900 text-lg placeholder-blue-300 shadow-sm resize-none focus:outline-none focus:ring-4 focus:ring-blue-300 focus:border-transparent transition"
+        ></textarea>
+        <button
+          type="submit"
+          id="detect-btn"
+          class="w-full flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-blue-600 to-blue-500 py-4 text-xl font-extrabold text-white shadow-lg transition duration-300 ease-in-out hover:from-blue-700 hover:to-blue-600"
+        >
+          <i class="fas fa-robot fa-lg"></i> Detect AI Content
+        </button>
+      </form>
+      <div
+        id="result"
+        role="alert"
+        aria-live="polite"
+        class="mt-10 rounded-2xl p-8 text-center text-2xl font-extrabold hidden"
+      ></div>
+
+      <div
+        id="humanize-section"
+        class="mt-10 hidden rounded-2xl border border-yellow-300 bg-yellow-50 p-8 text-blue-900"
+      >
+        <h3 class="mb-6 text-center text-2xl font-extrabold">
+          Humanize AI-Generated Content
+        </h3>
+        <textarea
+          id="humanize-input"
+          rows="7"
+          placeholder="Edit or paste AI-generated content here to humanize it..."
+          aria-label="Humanize AI-generated content input"
+          class="w-full rounded-2xl border border-yellow-400 p-5 text-blue-900 text-lg placeholder-yellow-400 shadow-sm resize-none focus:outline-none focus:ring-4 focus:ring-yellow-300 focus:border-transparent transition"
+        ></textarea>
+        <button
+          id="humanize-btn"
+          type="button"
+          aria-label="Humanize content button"
+          class="mt-6 flex w-full items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-yellow-500 to-yellow-400 py-4 text-xl font-extrabold text-white shadow-lg transition duration-300 ease-in-out hover:from-yellow-600 hover:to-yellow-500"
+        >
+          <i class="fas fa-magic fa-lg"></i> Humanize Content
+        </button>
+        <div
+          id="humanized-output"
+          aria-live="polite"
+          aria-atomic="true"
+          class="mt-8 min-h-[120px] whitespace-pre-wrap rounded-2xl border border-yellow-300 bg-white p-6 text-blue-900 shadow-inner"
+        ></div>
+      </div>
+    </section>
+
+    <section id="how-it-works" class="mt-20 max-w-5xl mx-auto">
+      <h2 class="mb-12 text-center text-3xl font-extrabold text-blue-700 tracking-tight">
+        How It Works
+      </h2>
+      <div class="grid max-w-5xl grid-cols-1 gap-12 md:grid-cols-3 mx-auto">
+        <article
+          tabindex="0"
+          role="region"
+          aria-label="Analyze Text"
+          class="flex flex-col items-center rounded-3xl bg-white p-8 shadow-lg text-center transition hover:shadow-2xl"
+        >
+          <img
+            src="https://storage.googleapis.com/a1aa/image/b6ac79db-7e6d-4bb4-b4c9-95b64e9c5981.jpg"
+            alt="Illustration of text analysis with magnifying glass over document"
+            width="96"
+            height="96"
+            class="mb-6 w-24 h-24"
+            loading="lazy"
+          />
+          <h3 class="mb-3 text-xl font-extrabold text-blue-800">Analyze Text</h3>
+          <p class="max-w-xs text-blue-700">
+            Our AI-powered system analyzes the text you provide to detect patterns typical of AI-generated content.
+          </p>
+        </article>
+        <article
+          tabindex="0"
+          role="region"
+          aria-label="Machine Learning Model"
+          class="flex flex-col items-center rounded-3xl bg-white p-8 shadow-lg text-center transition hover:shadow-2xl"
+        >
+          <img
+            src="https://storage.googleapis.com/a1aa/image/e38b8ffc-ffbf-4744-a035-8d744446dca5.jpg"
+            alt="Illustration of AI brain with data connections"
+            width="96"
+            height="96"
+            class="mb-6 w-24 h-24"
+            loading="lazy"
+          />
+          <h3 class="mb-3 text-xl font-extrabold text-blue-800">Machine Learning Model</h3>
+          <p class="max-w-xs text-blue-700">
+            We use advanced machine learning models trained on large datasets to identify AI-generated writing.
+          </p>
+        </article>
+        <article
+          tabindex="0"
+          role="region"
+          aria-label="Get Results"
+          class="flex flex-col items-center rounded-3xl bg-white p-8 shadow-lg text-center transition hover:shadow-2xl"
+        >
+          <img
+            src="https://storage.googleapis.com/a1aa/image/4719b727-1910-4f3b-43bf-5964a70a39b4.jpg"
+            alt="Illustration of report with checkmark and cross icons"
+            width="96"
+            height="96"
+            class="mb-6 w-24 h-24"
+            loading="lazy"
+          />
+          <h3 class="mb-3 text-xl font-extrabold text-blue-800">Get Results</h3>
+          <p class="max-w-xs text-blue-700">
+            Receive a clear and easy-to-understand report indicating the likelihood that the content is AI-generated.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section
+      id="about"
+      tabindex="0"
+      role="region"
+      aria-label="About Us"
+      class="mx-auto mt-20 max-w-4xl rounded-3xl border border-blue-100 bg-white p-12 shadow-xl"
+    >
+      <h2 class="mb-8 text-center text-3xl font-extrabold text-blue-700 tracking-tight">
+        About Us
+      </h2>
+      <p class="mx-auto max-w-3xl text-center text-lg leading-relaxed text-blue-900">
+        Ai Detector is a project dedicated to helping educators, publishers, and content creators identify AI-generated text. Our tool leverages state-of-the-art machine learning techniques to provide accurate and reliable detection results. We believe in transparency, trust, and empowering users with the right tools to maintain content integrity.
+        <br /><br />
+        <span class="font-semibold">Hemant</span> is the visionary founder and lead developer behind this application.
+      </p>
+    </section>
+
+    <section
+      id="contact"
+      tabindex="0"
+      role="region"
+      aria-label="Contact Us"
+      class="mx-auto mt-20 max-w-4xl rounded-3xl border border-blue-100 bg-white p-12 shadow-xl"
+    >
+      <h2 class="mb-8 text-center text-3xl font-extrabold text-blue-700 tracking-tight">
+        Contact Us
+      </h2>
+      <form id="contact-form" autocomplete="off" spellcheck="false" class="mx-auto max-w-xl space-y-8">
+        <div>
+          <label for="name" class="mb-3 block text-blue-900 text-lg font-semibold">Name</label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            required
+            aria-required="true"
+            placeholder="Your full name"
+            class="w-full rounded-2xl border border-blue-300 p-4 text-blue-900 text-lg placeholder-blue-300 shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-300 focus:border-transparent transition"
+          />
+        </div>
+        <div>
+          <label for="email" class="mb-3 block text-blue-900 text-lg font-semibold">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            aria-required="true"
+            placeholder="you@example.com"
+            class="w-full rounded-2xl border border-blue-300 p-4 text-blue-900 text-lg placeholder-blue-300 shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-300 focus:border-transparent transition"
+          />
+        </div>
+        <div>
+          <label for="message" class="mb-3 block text-blue-900 text-lg font-semibold">Message</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="6"
+            required
+            aria-required="true"
+            placeholder="Write your message here"
+            class="w-full rounded-2xl border border-blue-300 p-4 text-blue-900 text-lg placeholder-blue-300 shadow-sm resize-none focus:outline-none focus:ring-4 focus:ring-blue-300 focus:border-transparent transition"
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          aria-label="Send message"
+          class="flex w-full items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-blue-600 to-blue-500 py-4 text-xl font-extrabold text-white shadow-lg transition duration-300 ease-in-out hover:from-blue-700 hover:to-blue-600"
+        >
+          <i class="fas fa-paper-plane fa-lg"></i> Send Message
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="bg-white/90 backdrop-blur-md border-t border-blue-200 py-6 mt-20">
+    <div class="container mx-auto max-w-6xl px-6 text-center text-blue-700 text-sm font-semibold select-none">
+      © 2024 Ai Detector. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById("menu-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
+    menuBtn.addEventListener("click", () => {
+      mobileMenu.classList.toggle("hidden");
+    });
+
+    // AI detection logic (simulated)
+    const form = document.getElementById("detector-form");
+    const resultDiv = document.getElementById("result");
+    const humanizeSection = document.getElementById("humanize-section");
+    const humanizeInput = document.getElementById("humanize-input");
+    const humanizeBtn = document.getElementById("humanize-btn");
+    const humanizedOutput = document.getElementById("humanized-output");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const text = form.content.value.trim();
+      if (!text) return;
+
+      resultDiv.classList.remove("hidden");
+      resultDiv.textContent = "Analyzing...";
+      resultDiv.classList.remove("text-red-600", "text-green-600");
+      humanizeSection.classList.add("hidden");
+      humanizeInput.value = "";
+      humanizedOutput.textContent = "";
+
+      setTimeout(() => {
+        const lowerText =
