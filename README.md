@@ -27,7 +27,7 @@ You can view the live demo [here](#) *(Add your live demo URL if available)*
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/ai-detector.git
+   git clone (https://github.com/hemantchilkuri/Ai-Content-Detector).git
    ```
 
 2. Navigate to the project directory:
